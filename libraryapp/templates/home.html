@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Library System</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 20px; }
+        h1 { color: #333; }
+        .section { background: white; padding: 15px; margin-bottom: 20px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+        ul { padding-left: 20px; }
+        li { margin: 5px 0; }
+        form { margin-top: 10px; }
+        input, select { margin: 5px 0; padding: 5px; }
+        button { padding: 5px 10px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h1>📚 Simple Library System</h1>
+
+    <div class="section">
+        <h2>Add Author</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ author_form.as_p }}
+            <button type="submit" name="author_submit">Add Author</button>
+        </form>
+    </div>
+
+    <div class="section">
+        <h2>Add Book</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ book_form.as_p }}
+            <button type="submit" name="book_submit">Add Book</button>
+        </form>
+    </div>
+
+    <div class="section">
+        <h2>Authors</h2>
+        <ul>
+            {% for author in authors %}
+                <li>{{ author.name }}</li>
+            {% empty %}
+                <li>No authors available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Books</h2>
+        <ul>
+            {% for book in books %}
+                <li><strong>{{ book.title }}</strong> ({{ book.published_year }}) — by {{ book.author.name }}</li>
+            {% empty %}
+                <li>No books available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>API Endpoints</h2>
+        <ul>
+            <li><a href="/api/authors/">Authors API</a></li>
+            <li><a href="/api/books/">Books API</a></li>
+        </ul>
+    </div>
+</body>
+</html>
