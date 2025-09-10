@@ -1,9 +1,7 @@
-from django.urls import path
-from .views import BookListCreateView, BookDetailView, author_list_create, home
+from django.urls import path, include
+from . import views
 
 urlpatterns = [
-    path("", home, name="home"),  # Home page
-    path("books/", BookListCreateView.as_view(), name="book-list-create"),
-    path("books/<int:pk>/", BookDetailView.as_view(), name="book-detail"),
-    path("authors/", author_list_create, name="author-list-create"),
+    path("", views.home, name="home"),  # root welcome page
+    path("api/", include("libraryapp.api_urls")),
 ]
